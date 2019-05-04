@@ -44,7 +44,7 @@ def flatten(listOfLists):
     "Flatten one level of nesting"
     return chain.from_iterable(listOfLists)
 
-def get_Nouns_Adjs(docs,product_name = []):
+def get_Nouns_Adjs(docs,product_name = [],add_stop = []):
     """
     Take in a list/Series of documents, output the most popular Nouns and Adjtives and write into csv files
 
@@ -70,7 +70,7 @@ def get_Nouns_Adjs(docs,product_name = []):
     tags = tagged_doc.apply(lambda x: [tup[1] for tup in x])
 
     # Remove stopwords
-    all_stops = list(gensim.parsing.preprocessing.STOPWORDS)
+    all_stops = list(gensim.parsing.preprocessing.STOPWORDS) + add_stop
     tagged_doc_cleaned = tagged_doc.apply(lambda x: [tup for tup in x if tup[0] not in all_stops])
 
     # Need to do the same for processed documents
@@ -178,12 +178,12 @@ def get_all_related_terms(word, target_type, boundary_type,tagged_terms,n = 15):
         
     return res_tb.iloc[:n,:]
     
-def get_text_summary(text ,n = 5):
+def get_text_summary(text ,n = 5, add_stop = []):
     
     """
     Input an array of text, output the summary table
     """
-    get_terms = get_Nouns_Adjs(pos['input_text'])
+    get_terms = get_Nouns_Adjs(text,add_stop = add_stop)
 
     top_adj = get_terms.all_adj.iloc[:15,:]
     top_noun = get_terms.all_noun.iloc[:15,:]

@@ -98,14 +98,12 @@
 									</p>
 
 									<p>
-										Part-of-speech is a category to which a word is assigned in accordance with its syntactic functions i.e. Nouns, Verbs, Adjectives, etc. When we think about the user reviews towards a certain product together with the part-of-speech components 
-										of text, it shouldn’t be surprising that the terms or tokens which provide the most insightful information are very likely found as Nouns or Adjectives. Nouns help explain the “What” question (what are the consumer talking about the product, the subjects. It could be packaging, delivery, smell, etc), while adjectives help with the “what about” question. (What about packaging; what about delivery; what about the smell)
+										Part-of-speech (POS) is a category to which a word is assigned in accordance with its syntactic functions i.e. Nouns, Verbs, Adjectives, etc. When we think about the user reviews towards a certain product together with the part-of-speech components 
+										of text, it shouldn’t be surprising that the terms or tokens which provide the most insightful information are very likely found as Nouns or Adjectives. Nouns help explain the “What” question (what are the consumer talking about the product, the subjects. It could be packaging, delivery, smell, etc), while adjectives help with the “what about” question. (What about packaging; what about delivery; what about the smell). For tens of thousands of user reviews, we get the part-of-speech for each token in each review through a method called “Part-of-speech tagging.”
 									</p>
 
 									<p>
-										For tens of thousands of user reviews, we get the part-of-speech for each token in each review through a method 
-										called “Part-of-speech tagging.” Part-of-speech tagging is a classic research topic on text analysis, and relevant 
-										techniques are rather mature today. One of the most popular approaches to performing the POS tagging would be the 
+										Part-of-speech tagging is a classic research topic on text analysis,and relevant techniques are rather mature today. One of the most popular approaches to performing the POS tagging would be the 
 										Hidden Markov Models and its variants. In summary, a Hidden Markov Model generates the part-of-speech tags by 
 										calculating the <b>Emission Probability</b> and the <b>Transition Probability</b> of each possible permutations of tags in the 
 										training data. Then it decides the “correct” set of tags based on maximum likelihood. For example, consider the 
@@ -147,33 +145,30 @@
 									</p>
 
 									<p>
-										Below, you can find the top 15 most popular nouns and adjectives for the Clorox wipes I mentioned above. As you can see, comparing with the vanilla popular terms found above, the tokens we have in the charts below are now mostly interpretable. 
-												<figure>
-														<img src="./blog_imgs/top_nouns.png" height="auto" width = '90%'>
-														<figcaption>Top Nouns<figcaption>
-												</figure>
-												<figure>
-													<img src="./blog_imgs/top_adjs.png" height="auto" width="90%">
-													<figcaption>Top Adjectives</figcaption>
-												</figure>
+										Below, you can find the top 15 most popular nouns and adjectives for the Clorox wipes I mentioned above. As you can see, comparing with the vanilla popular tokens, most of the terms we have in the charts below are easily interpretable. 
+											<figure>
+													<img src="./blog_imgs/top_nouns.png" height="auto" width = '90%'>
+													<figcaption>Top Nouns<figcaption>
+											</figure>
+											<figure>
+												<img src="./blog_imgs/top_adjs.png" height="auto" width="90%">
+												<figcaption>Top Adjectives</figcaption>
+											</figure>
 									</p>
 
 									<h4>Related Term Search</h4>
 									<p>
-										Now that we have the frequencies of Nouns and Adjectives, next step will be to find the relationships between 
-										them to address the lack of context problem further. Specifically, for a popular noun, how can we know the top 
-										related Adjectives? Similarly for an Adjective, how can we know the top related Nouns? Knowing the related terms 
-										can potentially help us deepen the information we get from the texts, but the task itself is not as straightforward 
+										Now that we have the frequencies of Nouns and Adjectives, the next step will be to find the relationships between them to further address the lack of context problem. Specifically, for a popular noun, how can we know the top related Adjectives? Similarly for an Adjective, how can we know the top related Nouns? Knowing the related terms can potentially help us deepen the information we get from the texts, but the task itself is not as straightforward 
 										as it seems to be.
 									</p>
 									<p>
 										Take the term “price” as an example. It is shown in the plot above as the third popular nouns, now I would like to 
 										know what about the price by looking at top related adjectives that our consumer use. Then we have a problem - how to 
-										define “related?” More specifically, how to construct a search algorithm that finds and displays the top related 
+										define related? More specifically, how to construct a search algorithm that finds and displays the top related 
 										adjectives? 
 									</p>
 									<p>
-										I will use the following review as an example to help illustrate my approach:
+										Let me use the following review as an example to help illustrate my approach:
 										<img src="./blog_imgs/example3.png" alt="" width="100%">
 									</p>
 
@@ -192,7 +187,7 @@
 									</p>
 
 									<p>
-										In this case, let’s call the term “price” as the “target term” as we want to get information about “price.” Within a specific review, we repeat the following steps for each occurrence of the target term. 
+										In this case, let’s call the term “price” as the <b>target term</b> as we want to get information about “price.” Within a specific review, we repeat the following steps for each occurrence of the target term. 
 									</p>
 
 									<p>
@@ -218,21 +213,22 @@
 
 									<p>
 										Terms like “good” and “great” are extremely popular. Which is actually true as we can find lots of reviews on Amazon that says “good price” and “great price.” 
-										This is not a complicated approach, but it seems to be very effective in helping us deepen the level of information we get. On the other hand, as in the plot above, reviewers use the term “great” a lot as an adjective, and I would like to know what is great about this product, I can repeat the process above with minor changes to obtain the following result:
+										This is not a complicated approach, but it seems to be very effective in helping us deepen the level of information we get. On the other hand, as in the plot above, reviewers use the term “great” a lot as an adjective, and I would like to know what is great about this product. I can repeat the process above with minor changes to obtain the following result:
 										<img src="./blog_imgs/related_2.png" alt="" width="100%">
 									</p>
 
 									<p>
-										It seems that people think the wipe is great for the kitchen, bathroom and their houses in general; The product works great and smells great.
+										It seems that people think the wipe is great for the kitchen, bathroom and their houses in general; The product works great and smells great. Furthermore, with the Part-of-speech information and the related term search, we can eaily generate a table like below that provides a pretty informative summary of the entire review collections
+									</p>
+
+									<img src="blog_imgs/summaryText.png" alt="" width="40%">
+
+									<p>
+										While being helpful, this approach of finding related terms with part-of-speech tagging is not perfect. It is doing a greedy search within the boundary terms based on the frequency and lots of noises will be included (for example, you will see some adjectives that are obviously not used to describe the target noun). It requires a certain amount of data so that the “real” related terms can actually “stand-out.” If our goal is really to retrieve highly in-depth and comprehensive information from a large collection of text, we may want to move away from frequency counts and adopt a neural-network-based approach. For example, we could label each review with both the questions we would like to ask and the sentence within the review that contains the answer to the question, then the network can learn to extract the related sentences with respect to each question. Of course, such techniques are beyond the scope of this blog. If you are interested, <a href="https://stacks.stanford.edu/file/druid:gd576xb1833/thesis-augmented.pdf">here</a> is a great paper by Danqi Chen from Stanford University about neural reading comprehension.
 									</p>
 
 									<p>
-										While being helpful, this approach of finding related terms with part-of-speech tagging is of course not perfect. It is doing a greedy search within the boundary terms based on the frequency and lots of noises will be included (for example, you will see some adjectives that are obviously not used to describe the target noun). It requires a certain amount of data so that the “real” related terms can actually “stand-out.” 
-										If our goal is really to retrieve highly in-depth and comprehensive information from a large collection of text, we may want to move away from frequency counts and adopt a neural-network-based approach. For example, we could label each review with both the questions we would like to ask and the sentence within the review that answers the question as labels, then the network can learn to extract the related sentences with respect to each question. Of course, such techniques are beyond the scope of this blog. If you are interested, <a href="https://stacks.stanford.edu/file/druid:gd576xb1833/thesis-augmented.pdf">here</a> is a great paper by Danqi Chen from Stanford University about neural reading comprehension.
-									</p>
-
-									<p>
-										Lastly, this method I came up with is just a twick in visualizing text data with the goal of getting more valuable information from text through visualization. I hope you find it practical and it would be great if it helps sparkle some thoughts and ideas when you encounter text data in the future. Thank you very much for reading through!
+										Lastly, this method I came up with is a simple "add-on" to text data visualization with the goal of getting more interpretable information from text. I hope it helps with your data analysis projects in practice and sparkles some thoughts and ideas when you encounter text data in the future. Here, you can find the all related functions I wrote for the methods described above, with which you will be able to reproduce the plots I got. Unfortunately, I cannot host the review data I scraped due to regulations, so you'll need to scrap your own data to play with. Thank you very much for reading through!
 									</p>
 		
 									<div id="comments">
