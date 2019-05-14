@@ -25,7 +25,7 @@ class review_analyzer:
     sa.get_review_summary()  
     """
     
-    def __init__(self,text,stem_flag = True, lemma_flag = False,stopwords = []):
+    def __init__(self,text,stem_flag = False, lemma_flag = True,stopwords = []):
         self.text = text
         self.stem_flag = stem_flag
         self.lemma_flag = lemma_flag
